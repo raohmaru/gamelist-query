@@ -1,0 +1,20 @@
+{
+    "name": "gamelist-query",
+    "type": "module",
+    "scripts": {
+        "query": "node ./src/js/cli.js",
+        "build": "node ./build.js",
+        "serve": "node serve.js",
+        "lint": "npx @biomejs/biome lint --write ./src",
+        "format ": "npx @biomejs/biome format --write ./src"
+    },
+    "dependencies": {
+        "@xmldom/xmldom": "0.9.9"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "2.4.12",
+        "cssnano": "7.1.7",
+        "postcss": "8.5.12",
+        "terser": "5.46.2"
+    }
+}

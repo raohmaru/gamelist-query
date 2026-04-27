@@ -1,0 +1,147 @@
+:root {
+	--color-light: #ffffff;
+	--color-secondary: #9d6a1d;
+
+	/* Backgrounds */
+	--bg-primary: linear-gradient(-10deg, #c9b79b 0%, #cbdfdd 50%, #dde4e9 100%);
+	--bg-secondary: linear-gradient(
+		341deg,
+		#a1ddd5 0%,
+		#c0d3d1 50%,
+		#dde4e9 100%
+	);
+	--bg-tertiary: var(--color-light);
+	--bg-overlay: rgba(0, 0, 0, 0.3);
+	--bg-textarea: var(--color-light);
+	--bg-popover: color-mix(in srgb, var(--bg-tertiary), transparent 15%);
+	--bg-warning: linear-gradient(341deg, #ddb7a1 0%, #c0d3d1 50%, #dde4e9 100%);
+
+	/* Borders */
+	--border-default: #abb7c0;
+	--border-focus: #5a7286;
+	--border-warning: #673a12;
+
+	/* Text */
+	--text-primary: #222224;
+	--text-secondary: #333336;
+	--text-placeholder: #77777a;
+	--text-info: #134351;
+	--text-warning: var(--color-secondary);
+
+	/* Buttons */
+	--btn-primary: #0f86a9;
+	--btn-primary-hover: #0a6d8b;
+	--btn-secondary: var(--color-secondary);
+	--btn-secondary-hover: #714709;
+	--btn-tertiary: #4dc19a;
+	--btn-tertiary-hover: #309c78;
+	--btn-text: white;
+
+	/* Table */
+	--tr-odd: rgb(227 225 222 / 50%);
+	--th-bg: #8fb6c1;
+	--th-hover: #a5c9d3;
+
+	/* Other */
+	--bd-radius: 4px;
+	--m-md: 20px;
+	--m-sm: 10px;
+	--font-code: monospace;
+	--fs-md: 1rem;
+	--fs-sm: 0.85rem;
+	--trans-md: 0.2s;
+	--trans-fast: 0.1s;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-light: #0c0c0e;
+		--color-secondary: #ad5c2d;
+
+		/* Backgrounds */
+		--bg-primary: linear-gradient(
+			-10deg,
+			#332318 0%,
+			#2b3b39 50%,
+			#1a1a2e 100%
+		);
+		--bg-secondary: linear-gradient(
+			341deg,
+			#290c57 0%,
+			#202b29 40%,
+			#3f4a67 100%
+		);
+		--bg-overlay: rgba(0, 0, 0, 0.5);
+		--bg-popover: var(--btn-primary);
+		--bg-warning: linear-gradient(
+			341deg,
+			#57280c 0%,
+			#202b29 40%,
+			#3f4a67 100%
+		);
+
+		/* Borders */
+		--border-default: #59656c;
+		--border-focus: #c5cbce;
+		--border-warning: #b1611b;
+
+		/* Text */
+		--text-primary: #ddd;
+		--text-secondary: #ccc;
+		--text-placeholder: #8888aa;
+		--text-info: #7bb3c3;
+
+		/* Buttons */
+		--btn-primary: #165489;
+		--btn-primary-hover: #3174af;
+		--btn-secondary-hover: #c97443;
+		--btn-tertiary: #118d63;
+		--btn-tertiary-hover: #4dc19a;
+		--btn-text: white;
+
+		/* Table */
+		--tr-odd: #2c3b4c;
+		--th-bg: #4c5e66;
+		--th-hover: #374b53;
+	}
+}
+
+/* Global styles */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: system-ui, sans-serif;
+	background: var(--bg-primary);
+	color: var(--text-primary);
+	min-height: 100vh;
+	margin: 0;
+}
+
+a {
+	color: var(--text-primary);
+}
+
+.hidden {
+	display: none;
+}
+
+gamelist-query:not(.hidden) ~ drop-zone {
+	opacity: 0.9;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	padding: 5px;
+	font-size: var(--fs-sm);
+	text-align: center;
+	background: var(--th-bg);
+	display: flex;
+	justify-content: center;
+	gap: var(--m-sm);
+}

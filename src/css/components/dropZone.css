@@ -1,0 +1,36 @@
+:host {
+	position: fixed;
+	inset: 0;
+	background: var(--bg-primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+}
+
+.drop-area {
+	height: clamp(400px, 80vw, 80vh);
+	aspect-ratio: 1 / 1;
+	border: 4px dashed var(--border-default);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	font-family: system-ui, sans-serif;
+	cursor: pointer;
+	transition:
+		border-color var(--trans-md) linear,
+		background var(--trans-md);
+
+	&:hover,
+	&.dragover {
+		border-color: var(--border-focus);
+		background: color-mix(in srgb, var(--bg-tertiary), transparent 75%);
+	}
+
+	p {
+		font-size: 1.5rem;
+		margin-block: 0 0.5rem;
+	}
+}

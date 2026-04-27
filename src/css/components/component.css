@@ -1,0 +1,50 @@
+@keyframes open {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes close {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+.button {
+	padding: var(--m-sm) var(--m-md);
+	font-size: var(--fs-md);
+	color: var(--btn-text);
+	background: var(--btn-primary);
+	border: 0;
+	border-radius: var(--bd-radius);
+	cursor: pointer;
+	transition: background var(--trans-md);
+
+	&:hover {
+		background: var(--btn-primary-hover);
+	}
+
+	&.secondary {
+		background: var(--btn-secondary);
+
+		&:hover {
+			background: var(--btn-secondary-hover);
+		}
+	}
+
+	&.tertiary {
+		background: var(--btn-tertiary);
+
+		&:hover {
+			background: var(--btn-tertiary-hover);
+		}
+	}
+}
