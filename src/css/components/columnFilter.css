@@ -7,11 +7,6 @@
 
 dialog {
 	position: absolute;
-	position-anchor: --filter-button;
-	inset: unset;
-	top: anchor(bottom);
-	right: anchor(right);
-	margin: 5px 0 0;
 	padding: var(--m-sm);
 	font-size: var(--fs-sm);
 	background: color-mix(in srgb, var(--bg-tertiary), transparent 15%);
@@ -21,6 +16,16 @@ dialog {
 		display var(--trans-fast) allow-discrete,
 		overlay var(--trans-fast) allow-discrete;
 	animation: close var(--trans-fast) forwards;
+    outline: 100vw solid var(--bg-overlay);
+
+    @media (min-height: 720px) {
+        position-anchor: --filter-button;
+	    inset: unset;
+        top: anchor(bottom);
+        right: anchor(right);
+	    margin: 5px 0 0;
+        outline: 0;
+    }
 
 	&:popover-open {
 		animation: open var(--trans-fast) forwards;
