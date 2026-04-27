@@ -4,13 +4,17 @@
 	display: flex;
 	position: fixed;
 	inset: 0;
-	padding-inline: var(--m-md);
+	padding-inline: var(--m-sm);
 	background: var(--bg-overlay);
 	z-index: 2000;
 	align-items: center;
 	justify-content: center;
 	transition: display var(--trans-fast) allow-discrete;
 	animation: open var(--trans-fast) forwards;
+
+    @media (min-width: 480px) {
+	    padding-inline: var(--m-md);
+    }
 }
 
 :host(.hidden) {
@@ -71,6 +75,7 @@ code {
 pre {
 	margin-top: 5px;
 	font-size: var(--fs-sm);
+    white-space: normal;
 	border-radius: var(--bd-radius);
 	padding: 4px;
 	background: color-mix(in srgb, var(--color-light), transparent 35%);

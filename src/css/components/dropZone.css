@@ -9,7 +9,7 @@
 }
 
 .drop-area {
-	height: clamp(400px, 80vw, 80vh);
+	height: clamp(340px, 80vw, 80vh);
 	aspect-ratio: 1 / 1;
 	border: 4px dashed var(--border-default);
 	border-radius: 50%;

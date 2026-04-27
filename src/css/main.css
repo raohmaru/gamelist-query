@@ -1,4 +1,5 @@
 :root {
+    /* Colors */
 	--color-light: #ffffff;
 	--color-secondary: #9d6a1d;
 
@@ -127,6 +128,12 @@ a {
 
 .hidden {
 	display: none;
+}
+
+@media (max-width: 480px) {
+    .hide-xs {
+        display: none;
+    }
 }
 
 gamelist-query:not(.hidden) ~ drop-zone {

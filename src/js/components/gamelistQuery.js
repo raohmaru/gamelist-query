@@ -215,7 +215,9 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 								value = parsePlayers(value);
 							}
 						}
-						return `<td>${value}</td>`;
+						return `<td ${prop === 'desc' ? ' title="' + value.replace(/"/g, "&quot;") + '"' : ''}>
+                            ${value}
+                        </td>`;
 					})
 					.join('');
 				return `<tr>${cells}</tr>`;
