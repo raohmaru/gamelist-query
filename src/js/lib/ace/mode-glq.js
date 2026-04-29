@@ -28,6 +28,14 @@ ace.define('ace/mode/glq_highlight_rules', (require, exports) => {
 					regex: '~|!~|<|>|<=|=>|=|!=|!'
 				},
 				{
+					token: 'paren.lparen',
+					regex: '[\\(]'
+				},
+				{
+					token: 'paren.rparen',
+					regex: '[\\)]'
+				},
+				{
 					token: 'text',
 					regex: '\\s+'
 				}

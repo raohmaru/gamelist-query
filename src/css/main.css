@@ -1,6 +1,7 @@
 :root {
-    /* Colors */
+	/* Colors */
 	--color-light: #ffffff;
+	--color-primary: #0f86a9;
 	--color-secondary: #9d6a1d;
 
 	/* Backgrounds */
@@ -30,7 +31,7 @@
 	--text-warning: var(--color-secondary);
 
 	/* Buttons */
-	--btn-primary: #0f86a9;
+	--btn-primary: var(--color-primary);
 	--btn-primary-hover: #0a6d8b;
 	--btn-secondary: var(--color-secondary);
 	--btn-secondary-hover: #714709;
@@ -43,20 +44,29 @@
 	--th-bg: #8fb6c1;
 	--th-hover: #a5c9d3;
 
+	/* Checkbox */
+	--border-checkbox: var(--color-primary);
+	--bg-checkbox: var(--bg-tertiary);
+	--bg-checkbox-checked: var(--color-primary);
+
 	/* Other */
 	--bd-radius: 4px;
 	--m-md: 20px;
 	--m-sm: 10px;
+	--font: "Roboto", sans-serif;
+	--font-condensed: "Roboto Condensed", sans-serif;
 	--font-code: monospace;
 	--fs-md: 1rem;
 	--fs-sm: 0.85rem;
 	--trans-md: 0.2s;
 	--trans-fast: 0.1s;
+	--icon-size: 16px;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root {
 		--color-light: #0c0c0e;
+		--color-primary: #1b619c;
 		--color-secondary: #ad5c2d;
 
 		/* Backgrounds */
@@ -93,7 +103,6 @@
 		--text-info: #7bb3c3;
 
 		/* Buttons */
-		--btn-primary: #165489;
 		--btn-primary-hover: #3174af;
 		--btn-secondary-hover: #c97443;
 		--btn-tertiary: #118d63;
@@ -115,11 +124,14 @@
 }
 
 body {
-	font-family: system-ui, sans-serif;
-	background: var(--bg-primary);
-	color: var(--text-primary);
 	min-height: 100vh;
 	margin: 0;
+	font-family: var(--font);
+	font-optical-sizing: auto;
+	font-style: normal;
+	font-variation-settings: "wdth" 100;
+	background: var(--bg-primary);
+	color: var(--text-primary);
 }
 
 a {
@@ -131,9 +143,9 @@ a {
 }
 
 @media (max-width: 480px) {
-    .hide-xs {
-        display: none;
-    }
+	.hide-xs {
+		display: none;
+	}
 }
 
 gamelist-query:not(.hidden) ~ drop-zone {
@@ -151,4 +163,8 @@ footer {
 	display: flex;
 	justify-content: center;
 	gap: var(--m-sm);
+}
+
+.footer-icon {
+	vertical-align: text-bottom;
 }

@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gamelist Query</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100..900&display=swap" rel="stylesheet">
+
     <script type="module" src="js/main.js" defer></script>
 </head>
 <body>
@@ -13,16 +18,18 @@
         <link rel="stylesheet" href="css/components/gamelistQuery.css">
         <div class="query-container">
             <code-editor></code-editor>
-            <button id="execute-btn" type="button" class="button" title="Execute search query">▶</button>
-            <button id="reset-btn" type="button" class="button secondary" title="Reset search query"><strong>↺</strong></button>
-            <div type="button" class="button dropdown" tabindex="0" role="button" title="Export search results...">
-                <span class="hide-sm">Export&nbsp;</span> ⮟
+            <button id="execute-btn" type="button" class="button icon play" title="Execute search query" aria-label="Execute search query"></button>
+            <button id="reset-btn" type="button" class="button secondary icon reset" title="Reset search query" aria-label="Reset search query"></button>
+            <button id="upload-btn" type="button" class="button icon upload" title="Upload gamelist.xml" aria-label="Upload gamelist.xml"></button>
+            <div type="button" class="button dropdown" tabindex="0" role="button" title="Export search results..." aria-label="Export search results...">
+                <span class="hide-sm">Export &nbsp;</span>
+                <span class="icon export"></span>
                 <div class="menu">
                     <button id="export-xml-btn" type="button" class="button" title="Export search results as an XML file">XML</button>
                     <button id="export-csv-btn" type="button" class="button" title="Export search results as a CSV file">CSV</button>
                 </div>
             </div>
-            <button id="help-btn" type="button" class="button tertiary" title="Show help"><strong>?</strong></button>
+            <button id="help-btn" type="button" class="button tertiary icon help" title="Show help" aria-label="Show help"></button>
         </div>
         <div class="infobar">
             <div id="info"></div>
@@ -43,11 +50,13 @@
     </template>
     <template id="column-filter-tmpl">
         <link rel="stylesheet" href="css/components/columnFilter.css">
-        <button type="button" id="filter-open" class="button filter-open-btn" popovertarget="filter-dialog">Filter columns 👁</button>
+        <button type="button" id="filter-open" class="button filter-open-btn" popovertarget="filter-dialog">Filter columns <span class="icon eye"></span></button>
         <dialog id="filter-dialog" popover>
-            <button type="button" class="button" id="filter-all">Select all</button>
-            <button type="button" class="button" id="filter-none">Select none</button>
             <ul id="filter-list" class="filter-list"></ul>
+            <div class="filter-buttons">
+                <button type="button" class="button" id="filter-all">Select all</button>
+                <button type="button" class="button" id="filter-none">Select none</button>
+            </div>
         </dialog>
     </template>
 
@@ -76,7 +85,9 @@
         <span class="hide-xs">Created by <a href="https://github.com/raohmaru" target="_blank">raohmaru</a></span>
         <span class="hide-xs">🎮</span>
         <span>
-            <a href="https://github.com/raohmaru/romtools/tree/master/gamelist" target="_blank"><span class="hide-xs">Source code</span> <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="vertical-align: text-bottom;"><path d="M12 1C5.923 1 1 5.923 1 12c0 4.867 3.149 8.979 7.521 10.436.55.096.756-.233.756-.522 0-.262-.013-1.128-.013-2.049-2.764.509-3.479-.674-3.699-1.292-.124-.317-.66-1.293-1.127-1.554-.385-.207-.936-.715-.014-.729.866-.014 1.485.797 1.691 1.128.99 1.663 2.571 1.196 3.204.907.096-.715.385-1.196.701-1.471-2.448-.275-5.005-1.224-5.005-5.432 0-1.196.426-2.186 1.128-2.956-.111-.275-.496-1.402.11-2.915 0 0 .921-.288 3.024 1.128a10.193 10.193 0 0 1 2.75-.371c.936 0 1.871.123 2.75.371 2.104-1.43 3.025-1.128 3.025-1.128.605 1.513.221 2.64.111 2.915.701.77 1.127 1.747 1.127 2.956 0 4.222-2.571 5.157-5.019 5.432.399.344.743 1.004.743 2.035 0 1.471-.014 2.654-.014 3.025 0 .289.206.632.756.522C19.851 20.979 23 16.854 23 12c0-6.077-4.922-11-11-11Z"></path></svg></a>
+            <a href="https://github.com/raohmaru/romtools/tree/master/gamelist" target="_blank"><span class="hide-xs">Source code</span>
+                <img src="img/github.svg" width="16" height="16" class="footer-icon" alt="GitHub" aria-hidden="true">
+            </a>
         </span>
     </footer>
 </body>

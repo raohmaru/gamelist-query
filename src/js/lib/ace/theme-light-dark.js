@@ -16,6 +16,10 @@ ace.define('ace/theme/light-dark-css', (require, exports, module) => {
         color: rgb(191, 191, 191);
     }
 
+    .ace_paren {
+        color: #168185;
+    }
+
     .ace_constant.ace_buildin {
         color: rgb(88, 72, 246);
     }
@@ -53,18 +57,6 @@ ace.define('ace/theme/light-dark-css', (require, exports, module) => {
 
     .ace_keyword.ace_operator {
         color: rgb(104, 118, 135);
-    }
-
-    .ace_comment {
-        color: #236e24;
-    }
-
-    .ace_comment.ace_doc {
-        color: #236e24;
-    }
-
-    .ace_comment.ace_doc.ace_tag {
-        color: #236e24;
     }
 
     .ace_constant.ace_numeric {
@@ -140,9 +132,6 @@ ace.define('ace/theme/light-dark-css', (require, exports, module) => {
     .ace-light-dark {
         color: #E6E1DC;
 
-        .ace_scroller {
-        }
-
         .ace_cursor {
             border-left: 1px solid #7991E8;
         }
@@ -198,8 +187,6 @@ ace.define('ace/theme/light-dark-css', (require, exports, module) => {
             color: #fa8d6a;
         }
 
-        .ace_identifier {}
-
         .ace-statement {
             color: #cda869;
         }
@@ -250,16 +237,6 @@ ace.define('ace/theme/light-dark-css', (require, exports, module) => {
 
         .ace_string.ace_regexp {
             color: #DAD085;
-        }
-
-        .ace_comment {
-            font-style: italic;
-            color: #555;
-        }
-
-        .ace_comment.ace_doc.ace_tag {
-            color: #666;
-            font-style: normal;
         }
 
         .ace_definition,

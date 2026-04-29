@@ -6,6 +6,12 @@
 	align-items: center;
 	justify-content: center;
 	z-index: 1000;
+	--bg-img: url("../../img/consoles-black.png");
+    --bg-hover: color-mix(in srgb, var(--bg-tertiary), transparent 75%);
+
+	@media (prefers-color-scheme: dark) {
+		--bg-img: url("../../img/consoles-white.png");
+	}
 }
 
 .drop-area {
@@ -20,17 +26,31 @@
 	font-family: system-ui, sans-serif;
 	cursor: pointer;
 	transition:
-		border-color var(--trans-md) linear,
-		background var(--trans-md);
+		border-color var(--trans-md),
+		background-color var(--trans-md),
+		background-size var(--trans-md);
+
+	@media (min-width: 720px) {
+        background: var(--bg-img) center no-repeat;
+        background-size: calc(1400px - 20vw);
+    }
 
 	&:hover,
 	&.dragover {
 		border-color: var(--border-focus);
-		background: color-mix(in srgb, var(--bg-tertiary), transparent 75%);
+		background: var(--bg-hover);
+
+        @media (min-width: 720px) {
+            background:
+                var(--bg-img) center no-repeat,
+                var(--bg-hover);
+		    background-size: calc(1250px - 20vw);
+        }
 	}
 
 	p {
-		font-size: 1.5rem;
 		margin-block: 0 0.5rem;
+		font-size: 1.5rem;
+		font-weight: 500;
 	}
 }

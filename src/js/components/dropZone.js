@@ -51,6 +51,10 @@ export default class DropZone extends Component {
 			};
 			input.click();
 		});
+
+		document.addEventListener('file-selector', () => {
+			dropArea.click();
+		});
 	}
 
 	handleFile(file) {

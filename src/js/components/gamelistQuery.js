@@ -27,6 +27,10 @@ export default class GamelistQuery extends Component {
 			this.$('code-editor').focus();
 		});
 
+		this.$('#upload-btn').addEventListener('click', () => {
+			this.dispatchEvent('file-selector');
+		});
+
 		this.$('#export-xml-btn').addEventListener('mousedown', () =>
 			exportToXml(this.games, this.gamesFiltered)
 		);
@@ -91,7 +95,9 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 			}
 		});
 
-		dragScroll(tableContainer, (e) => e.altKey);
+		if (navigator.maxTouchPoints === 0) {
+			dragScroll(tableContainer, (e) => e.altKey);
+		}
 	}
 
 	loadGames(games) {
@@ -215,7 +221,7 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 								value = parsePlayers(value);
 							}
 						}
-						return `<td ${prop === 'desc' ? ' title="' + value.replace(/"/g, "&quot;") + '"' : ''}>
+						return `<td ${prop === 'desc' ? ` title="${value.replace(/"/g, '&quot;')}"` : ''}>
                             ${value}
                         </td>`;
 					})

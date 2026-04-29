@@ -20,6 +20,7 @@
 
 .button {
 	padding: var(--m-sm) var(--m-md);
+	font-family: var(--font);
 	font-size: var(--fs-md);
 	color: var(--btn-text);
 	background: var(--btn-primary);
@@ -47,10 +48,61 @@
 			background: var(--btn-tertiary-hover);
 		}
 	}
+
+	&:has(.icon) {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+	}
+
+	&.icon {
+		width: inherit;
+		height: inherit;
+	}
+}
+
+/* biome-ignore lint: lint/style/noDescendingSpecificity */
+.icon {
+	display: inline-block;
+	width: var(--icon-size);
+	height: var(--icon-size);
+
+	&::after {
+		content: "";
+		display: inline-block;
+		width: var(--icon-size);
+		height: var(--icon-size);
+		background-color: var(--btn-text);
+		mask-repeat: no-repeat;
+	}
+
+	&.play::after {
+		mask-image: url("../../img/play.svg");
+	}
+
+	&.reset::after {
+		mask-image: url("../../img/reset.svg");
+	}
+
+	&.export::after {
+		mask-image: url("../../img/export.svg");
+	}
+
+	&.upload::after {
+		mask-image: url("../../img/upload.svg");
+	}
+
+	&.help::after {
+		mask-image: url("../../img/help.svg");
+	}
+
+	&.eye::after {
+		mask-image: url("../../img/eye.svg");
+	}
 }
 
 @media (max-width: 720px) {
-    .hide-sm {
-        display: none;
-    }
+	.hide-sm {
+		display: none;
+	}
 }

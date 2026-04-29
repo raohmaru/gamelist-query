@@ -57,6 +57,14 @@ async function processCssFiles() {
 	});
 }
 
+async function copyImgFiles() {
+	const imgSrcDir = join(srcDir, 'img');
+	const imgDistDir = join(distDir, 'img');
+	await processDirectory(imgSrcDir, imgDistDir, async (srcPath, destPath) => {
+		await cp(srcPath, destPath);
+	});
+}
+
 async function walk(dir, destRoot, processor, relativePath = '') {
     const entries = await readdir(dir, { withFileTypes: true });
     for (const entry of entries) {
@@ -82,6 +90,7 @@ async function main() {
 	await copyIndexHtml();
 	await processJsFiles();
 	await processCssFiles();
+	await copyImgFiles();
 	console.log('Build complete');
 }
 
