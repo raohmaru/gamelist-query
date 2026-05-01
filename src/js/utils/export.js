@@ -23,12 +23,14 @@ export function exportToXml(games, indexes) {
 export function exportToCSV(table) {
 	let csv = '';
 	csv += [...table.querySelectorAll('thead th')]
-		.map((th) => th.textContent)
+		.map((th) => th.textContent.trim())
 		.join(',');
 	csv += '\n';
 	csv += [...table.querySelectorAll('tbody tr')]
 		.map((tr) => {
-			return [...tr.childNodes].map((td) => `"${td.textContent}"`).join(',');
+			return [...tr.children]
+                .map((td) => `"${td.textContent.replaceAll('\n', '').trim()}"`)
+                .join(',');
 		})
 		.join('\n');
 	const blob = new Blob([csv], { type: 'text/csv' });
