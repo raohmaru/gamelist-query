@@ -1,3 +1,5 @@
+import { COMPARISON_OP } from './operators.js';
+
 /**
  * Parse the value of some special properties.
  * @param {string} prop
@@ -5,10 +7,10 @@
  * @param {string} value2
  * @returns {*[]}
  */
-export function parseValues(prop, value1, value2) {
+export function parseValues(prop, value1, value2, operator) {
 	/** @type {string|string[]|number|Date} parsedValue1 */
 	let parsedValue1 = value1;
-	/** @type {string|number|Date} parsedValue2 */
+	/** @type {string|string[]|number|Date} parsedValue2 */
 	let parsedValue2 = value2;
 
 	switch (prop) {
@@ -35,6 +37,12 @@ export function parseValues(prop, value1, value2) {
 			parsedValue2 = new Date(value2);
 			break;
 	}
+
+	// Parse values for special operators
+	if (operator === COMPARISON_OP.in || operator === COMPARISON_OP.not_in) {
+		parsedValue2 = value2.split(',').map((v) => v.trim());
+	}
+
 	return [parsedValue1, parsedValue2];
 }
 

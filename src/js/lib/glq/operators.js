@@ -10,9 +10,12 @@ export const COMPARISON_OP = {
 	less_or_equal: '<=',
 	less: '<',
 	like: '~',
-	not_like: '!~'
+	not_like: '!~',
+	in: 'in',
+	not_in: '!in'
 };
 export const PREFIX_OP = {
+	has: '+',
 	not: '!'
 };
 
@@ -24,10 +27,12 @@ export const LOGICAL_OP_RGX = new RegExp(
 );
 export const COMPARISON_OP_RGX = new RegExp(
 	`[ ]+(${Object.values(COMPARISON_OP).join('|')})[ ]+`,
-	'g'
+	'gi'
 );
 export const PREFIX_OP_RGX = new RegExp(
-	`^${Object.values(PREFIX_OP).join('|')}`
+	`^${Object.values(PREFIX_OP)
+		.map((o) => o.replaceAll('+', '\\+'))
+		.join('|')}`
 );
 
 export const LOGICAL_OP_VALUES = Object.values(LOGICAL_OP);

@@ -51,7 +51,7 @@ function compareDates(operator, leftValue, rightValue) {
  * @returns {boolean}
  */
 export function compareValues(prop, value1, value2, operator) {
-	const [leftValue, rightValue] = parseValues(prop, value1, value2);
+	const [leftValue, rightValue] = parseValues(prop, value1, value2, operator);
 	let result = false;
 	switch (operator) {
 		case COMPARISON_OP.greater:
@@ -111,6 +111,24 @@ export function compareValues(prop, value1, value2, operator) {
 				result = leftValue.every((v) => !v.includes(rightValue));
 			}
 			break;
+
+		case COMPARISON_OP.in: {
+			if (typeof leftValue === 'string') {
+				result = rightValue.includes(leftValue);
+			} else if (Array.isArray(leftValue)) {
+				result = leftValue.some((v) => rightValue.includes(v));
+			}
+			break;
+		}
+
+		case COMPARISON_OP.not_in: {
+			if (typeof leftValue === 'string') {
+				result = !rightValue.includes(leftValue);
+			} else if (Array.isArray(leftValue)) {
+				result = leftValue.every((v) => !rightValue.includes(v));
+			}
+			break;
+		}
 	}
 	return result;
 }

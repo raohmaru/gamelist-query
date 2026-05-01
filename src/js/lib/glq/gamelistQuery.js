@@ -22,7 +22,10 @@ function gameQuery(game, queryTree) {
 			const node = game.getElementsByTagName(prop)?.[0];
 
 			// Handle prefixes
-			if (left[0] === PREFIX_OP.not && !node) {
+			if (
+				(left[0] === PREFIX_OP.has && node) ||
+				(left[0] === PREFIX_OP.not && !node)
+			) {
 				include = true;
 				continue;
 			}
@@ -34,6 +37,10 @@ function gameQuery(game, queryTree) {
 
 			// Game doesn't have the property, or invalid query
 			if (!node || !operator || !value) {
+				// Include game if negative query
+				if (!node && operator?.[0] === '!') {
+					include = true;
+				}
 				continue;
 			}
 
@@ -41,7 +48,7 @@ function gameQuery(game, queryTree) {
 				prop,
 				node.textContent.trim().toLowerCase(),
 				value.toLowerCase(),
-				operator
+				operator.toLowerCase()
 			);
 		}
 

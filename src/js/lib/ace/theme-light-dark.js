@@ -13,7 +13,7 @@ window.ace.define('ace/theme/light-dark-css', (require, exports, module) => {
     }
 
     .ace_invisible {
-        color: rgb(191, 191, 191);
+        color: #bfbfbf;
     }
 
     .ace_paren {
@@ -21,33 +21,33 @@ window.ace.define('ace/theme/light-dark-css', (require, exports, module) => {
     }
 
     .ace_constant.ace_buildin {
-        color: rgb(88, 72, 246);
+        color: #5848f6;
     }
 
     .ace_constant.ace_language {
-        color: rgb(88, 92, 246);
+        color: #585cf6;
     }
 
     .ace_constant.ace_library {
-        color: rgb(6, 150, 14);
+        color: #06960e;
     }
 
     .ace_invalid {
-        background-color: rgb(153, 0, 0);
+        background-color: #990000;
         color: white;
     }
 
     .ace_support.ace_function {
-        color: rgb(60, 76, 114);
+        color: #3c4c72;
     }
 
     .ace_support.ace_constant {
-        color: rgb(6, 150, 14);
+        color: #06960e;
     }
 
     .ace_support.ace_type,
     .ace_support.ace_class .ace_support.ace_other {
-        color: rgb(109, 121, 222);
+        color: #6d79de;
     }
 
     .ace_variable.ace_parameter {
@@ -55,20 +55,21 @@ window.ace.define('ace/theme/light-dark-css', (require, exports, module) => {
         color: #fd971f;
     }
 
-    .ace_keyword.ace_operator {
-        color: rgb(104, 118, 135);
+    .ace_keyword.ace_operator,
+    .ace_keyword.ace_control {
+        color: #687687;
     }
 
     .ace_constant.ace_numeric {
-        color: rgb(0, 0, 205);
+        color: #0000cd;
     }
 
     .ace_variable {
-        color: rgb(49, 132, 149);
+        color: #318495;
     }
 
     .ace_xml-pe {
-        color: rgb(104, 104, 91);
+        color: #68685b;
     }
 
     .ace_entity.ace_name.ace_function {
@@ -76,28 +77,28 @@ window.ace.define('ace/theme/light-dark-css', (require, exports, module) => {
     }
 
     .ace_heading {
-        color: rgb(12, 7, 255);
+        color: #0c07ff;
     }
 
     .ace_list {
-        color: rgb(185, 6, 144);
+        color: #b90690;
     }
 
     .ace_marker-layer .ace_selection {
-        background: rgb(181, 213, 255);
+        background: #b5d5ff;
     }
 
     .ace_marker-layer .ace_step {
-        background: rgb(252, 255, 0);
+        background: #fcff00;
     }
 
     .ace_marker-layer .ace_stack {
-        background: rgb(164, 229, 101);
+        background: #a4e565;
     }
 
     .ace_marker-layer .ace_bracket {
         margin: -1px 0 0 -1px;
-        border: 1px solid rgb(192, 192, 192);
+        border: 1px solid #c0c0c0;
     }
 
     .ace_marker-layer .ace_active-line {
@@ -105,18 +106,18 @@ window.ace.define('ace/theme/light-dark-css', (require, exports, module) => {
     }
 
     .ace_marker-layer .ace_selected-word {
-        background: rgb(250, 250, 255);
-        border: 1px solid rgb(200, 200, 250);
+        background: #fafaff;
+        border: 1px solid #c8c8fa;
     }
 
     .ace_storage,
     .ace_keyword,
     .ace_meta.ace_tag {
-        color: rgb(147, 15, 128);
+        color: #930f80;
     }
 
     .ace_string.ace_regex {
-        color: rgb(255, 0, 0);
+        color: #ff0000;
     }
 
     .ace_string {
@@ -155,7 +156,7 @@ window.ace.define('ace/theme/light-dark-css', (require, exports, module) => {
         }
 
         .ace_marker-layer .ace_step {
-            background: rgb(198, 219, 174);
+            background: #c6dbae;
         }
 
         .ace_marker-layer .ace_bracket {
@@ -179,7 +180,8 @@ window.ace.define('ace/theme/light-dark-css', (require, exports, module) => {
             color: #cda869;
         }
 
-        .ace_keyword.ace_operator {
+        .ace_keyword.ace_operator,
+        .ace_keyword.ace_control {
             color: #fa8d6a;
         }
 

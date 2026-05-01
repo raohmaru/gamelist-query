@@ -4,10 +4,12 @@ window.ace.define('ace/mode/glq_highlight_rules', (require, exports) => {
 		require('./text_highlight_rules').TextHighlightRules;
 	const HighlightRules = function () {
 		const keywords = 'and|or';
+		const keywordControls = 'in|!in';
 		const dataTypes = 'numeric|string';
 		const keywordMapper = this.createKeywordMapper(
 			{
 				keyword: keywords,
+				'keyword.control': keywordControls,
 				'storage.type': dataTypes
 			},
 			'identifier',
@@ -25,7 +27,7 @@ window.ace.define('ace/mode/glq_highlight_rules', (require, exports) => {
 				},
 				{
 					token: 'keyword.operator',
-					regex: '~|!~|<|>|<=|=>|=|!=|!'
+					regex: '~|!~|<|>|<=|=>|=|!=|!|\\+'
 				},
 				{
 					token: 'paren.lparen',
