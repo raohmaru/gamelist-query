@@ -46,7 +46,7 @@ export default class ColumnFilter extends Component {
 	 * @param {string[]} columns
 	 */
 	setColumns(columns) {
-		const raw = columns.sort().map((c) => {
+		const raw = columns.map((c) => {
 			return `
             <li>
                 <label>

@@ -14,6 +14,19 @@ import {
 } from '../events.js';
 /** @typedef {import("./modal.js").default} Modal */
 
+const COLS_WIDTH = {
+	rating: '100px',
+	players: '100px',
+	lang: '160px',
+	region: '100px',
+	releasedate: '140px',
+	playcount: '140px',
+	lastplayed: '140px',
+	gametime: '140px',
+	favorite: '100px',
+	crc32: '100px'
+};
+
 export default class GamelistQuery extends Component {
 	gamesFiltered = [];
 	games = [];
@@ -79,7 +92,7 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 		);
 
 		this.$('column-filter').addEventListener(COLFILTER_CHANGE, (e) => {
-			this.propertiesFiltered = e.detail.selectedColumns;
+			this.setColumns(e.detail.selectedColumns);
 			this.renderTable(this.gamesFiltered);
 		});
 
@@ -120,7 +133,7 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 			});
 		});
 		this.properties = Array.from(allProperties);
-		this.propertiesFiltered = this.properties.slice();
+		this.setColumns(this.properties);
 
 		this.show();
 		this.reset();
@@ -163,6 +176,16 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 		this.renderTable(this.gamesFiltered);
 	}
 
+	setColumns(props) {
+		this.propertiesFiltered = props.slice();
+		const cssVar = props.reduce((acc, v) => {
+			const min = COLS_WIDTH[v] || '300px';
+			/* biome-ignore lint: lint/suspicious/noAssignInExpressions */
+			return (acc += ` minmax(${min}, 1fr)`);
+		}, '');
+		this.style.setProperty('--cols', cssVar);
+	}
+
 	renderTable(gameIdxs) {
 		const container = this.$('#table-container');
 		const info = this.$('#info');
@@ -196,8 +219,8 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 					}
 					return bVal.localeCompare(aVal);
 				}
-				aVal = Number(aVal);
-				bVal = Number(bVal);
+				aVal = Number(aVal) | 0;
+				bVal = Number(bVal) | 0;
 				if (this.sortDirection === 'asc') {
 					return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
 				}
@@ -206,13 +229,21 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 		}
 
 		const headers = this.properties
-			.map((prop) => {
+			.map((prop, idx) => {
 				if (!this.propertiesFiltered.includes(prop)) {
 					return '';
 				}
 				const isSorted = this.sortColumn === prop;
 				const cls = isSorted ? `sorted ${this.sortDirection}` : '';
-				return `<th class="${cls}" data-prop="${prop}" title="Order table by this property">${prop}</th>`;
+				return `
+                    <th
+                        class="${cls}"
+                        data-prop="${prop}"
+                        title="Order table by this property"
+                        style="order: ${idx + 1}"
+                    >
+                            ${prop}
+                    </th>`;
 			})
 			.join('');
 
@@ -220,7 +251,7 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 			.map((idx) => {
 				const game = this.games[idx];
 				const cells = this.properties
-					.map((prop) => {
+					.map((prop, cellIdx) => {
 						if (!this.propertiesFiltered.includes(prop)) {
 							return '';
 						}
@@ -233,9 +264,13 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 								value = parsePlayers(value);
 							}
 						}
-						return `<td ${prop === 'desc' ? ` title="${value.replace(/"/g, '&quot;')}"` : ''}>
-                            ${value}
-                        </td>`;
+						return `
+                            <td data-prop="${prop}"
+                                ${prop === 'desc' ? ` title="${value.replace(/"/g, '&quot;')}"` : ''}
+                                style="order: ${cellIdx + 1}"
+                            >
+                                    ${value}
+                            </td>`;
 					})
 					.join('');
 				return `<tr>${cells}</tr>`;

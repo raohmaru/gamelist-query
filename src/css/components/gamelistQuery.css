@@ -104,7 +104,10 @@ code-editor {
 
 table {
 	position: relative;
-	width: 100%;
+	display: grid;
+	grid-template-columns: var(--cols);
+	width: fit-content;
+	min-width: 100%;
 	border-spacing: 0;
 	border-collapse: separate;
 	border: solid 1px var(--th-bg);
@@ -112,7 +115,30 @@ table {
 	border-radius: var(--bd-radius);
 }
 
+thead,
+tbody {
+	display: grid;
+	grid-column: 1 / -1;
+	grid-template-columns: subgrid;
+	grid-auto-rows: 40px;
+}
+
+tr {
+	display: grid;
+	grid-column: 1 / -1;
+	grid-template-columns: subgrid;
+
+	&:nth-child(odd) {
+		background: var(--tr-odd);
+	}
+
+	&:hover td {
+		background: color-mix(in srgb, var(--bg-tertiary), transparent 35%);
+	}
+}
+
 th,
+/* biome-ignore lint: lint/style/noDescendingSpecificity */
 td {
 	padding: var(--m-sm) 15px;
 	text-align: left;
@@ -142,21 +168,11 @@ th {
 	}
 }
 
+/* biome-ignore lint: lint/style/noDescendingSpecificity */
 td {
 	font-family: var(--font-condensed);
 	color: var(--text-secondary);
-	max-width: 300px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-}
-
-tr {
-	&:nth-child(odd) {
-		background: var(--tr-odd);
-	}
-
-	&:hover td {
-		background: color-mix(in srgb, var(--bg-tertiary), transparent 35%);
-	}
 }
