@@ -69,8 +69,11 @@ Where `property` is any game property found in the file gamelist.xml.
 | `<=` | Less or equal | `players <= 4` |
 | `~` | Contains (text search) | `name ~ Sonic` |
 | `!~` | Does not contain | `name !~ Demo` |
+| `IN` | Is included in | `genre IN Action,Sports` |
+| `!IN` | Is not included in | `genre !IN Action,Sports` |
 
-To search for missing properties, prefix the property with `!`
+To search for non-empty properties, prefix the property with `+`.  
+To search for missing properties, prefix the property with `!`.  
 
 Conditions can be joined using **Logical Operators:**:
 - `AND` – Both conditions must match

@@ -6,15 +6,17 @@
 	align-items: center;
 	justify-content: center;
 	z-index: 1000;
-	--bg-img: url("../../img/consoles-black.png");
-	--bg-hover: color-mix(in srgb, var(--bg-tertiary), transparent 75%);
+	--bg-img: url("../../img/consoles-black.jpg");
+	--bg-blendmode: multiply;
 
 	@media (prefers-color-scheme: dark) {
-		--bg-img: url("../../img/consoles-white.png");
+        --bg-img: url("../../img/consoles-white.jpg");
+        --bg-blendmode: screen;
 	}
 }
 
 .drop-area {
+    position: relative;
 	height: clamp(340px, 80vw, 80vh);
 	aspect-ratio: 1 / 1;
 	border: 4px dashed var(--border-default);
@@ -27,30 +29,32 @@
 	cursor: pointer;
 	transition:
 		border-color var(--trans-md),
-		background-color var(--trans-md),
-		background-size var(--trans-md);
+		background-color var(--trans-md);
 
-	@media (min-width: 720px) {
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
 		background: var(--bg-img) center no-repeat;
-		background-size: calc(1400px - 20vw);
-	}
+		background-size: 115%;
+        border-radius: 50%;
+        mix-blend-mode: var(--bg-blendmode);
+        transition: background-size var(--trans-md);
+    }
 
 	&:hover,
 	&.dragover {
 		border-color: var(--border-focus);
-		background: var(--bg-hover);
+		background: color-mix(in srgb, var(--bg-tertiary), transparent 75%);
 
-		@media (min-width: 720px) {
-			background:
-				var(--bg-img) center no-repeat,
-				var(--bg-hover);
-			background-size: calc(1250px - 20vw);
-		}
+        &::before {
+		    background-size: 150%;
+        }
 	}
 
 	p {
-		margin-block: 0 0.5rem;
-		font-size: 1.5rem;
+		margin-block: 0.5rem;
+		font-size: var(--fs-lg);
 		font-weight: 500;
 	}
 }

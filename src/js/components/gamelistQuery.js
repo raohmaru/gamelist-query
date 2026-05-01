@@ -73,13 +73,14 @@ Write the name of a game property (${Object.values(this.properties)
 						', '
 					)}) and a value with which to compare with the game property.<br>
 You can join queries with <code>AND</code> or <code>OR</code>, and create sub-queries by enclosing a query in parentheses <code>(...)</code>.<br><br>
-To search for games that are missing a property, prefix the property with <code>!</code>.<br><br>
-<strong>Examples:</strong><br>
+To search for non-empty properties, prefix the property with <code>+</code>.<br>
+To search games without a property, prefix the property with <code>!</code>.<br><br>
+<strong>Examples</strong><br><br>
 Games with "Sonic" in the title and the rating is greater than 0.5 and the property "publisher" is missing.
 <pre>
 name ~ Sonic AND rating > 0.5 AND !publisher
 </pre>
-Games with number of players greater than 2 and which genre is "Adventure" or it was released on February 1990 and before.
+Games with number of players greater than 2 and which genre is "Adventure" or it was released on February 1990 or before.
 <pre>
 players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 </pre>
@@ -219,8 +220,8 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 					}
 					return bVal.localeCompare(aVal);
 				}
-				aVal = Number(aVal) | 0;
-				bVal = Number(bVal) | 0;
+				aVal = Number(aVal) || 0;
+				bVal = Number(bVal) || 0;
 				if (this.sortDirection === 'asc') {
 					return aVal > bVal ? 1 : aVal < bVal ? -1 : 0;
 				}
@@ -242,7 +243,7 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
                         title="Order table by this property"
                         style="order: ${idx + 1}"
                     >
-                            ${prop}
+                        ${prop}
                     </th>`;
 			})
 			.join('');
@@ -269,7 +270,8 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
                                 ${prop === 'desc' ? ` title="${value.replace(/"/g, '&quot;')}"` : ''}
                                 style="order: ${cellIdx + 1}"
                             >
-                                    ${value}
+                                ${prop === 'name' ? `<a href="https://www.igdb.com/search??utf8=✓&type=1&q=${encodeURIComponent(value)}" target="_blank">` : ''}
+                                ${value}
                             </td>`;
 					})
 					.join('');

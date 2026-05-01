@@ -123,6 +123,11 @@ tbody {
 	grid-auto-rows: 40px;
 }
 
+thead {
+	position: sticky;
+	top: 0;
+}
+
 tr {
 	display: grid;
 	grid-column: 1 / -1;
@@ -139,14 +144,16 @@ tr {
 
 th,
 /* biome-ignore lint: lint/style/noDescendingSpecificity */
-td {
+	td {
 	padding: var(--m-sm) 15px;
 	text-align: left;
+
+	/* &[data-prop="lang"] {
+        order: 0 !important;
+    } */
 }
 
 th {
-	position: sticky;
-	top: 0;
 	background: var(--th-bg);
 	cursor: pointer;
 	user-select: none;
@@ -175,4 +182,18 @@ td {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+
+	&[data-prop="name"] {
+		font-weight: 700;
+	}
+}
+
+a {
+	color: var(--text-primary);
+	text-decoration: none;
+	transition: color var(--trans-fast);
+
+	&:hover {
+		color: var(--text-hover);
+	}
 }

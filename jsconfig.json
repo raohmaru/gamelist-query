@@ -9,5 +9,5 @@
     "src/**/*",
     "globals.d.ts"
   ],
-  "exclude": ["src/js/lib/ace"]
+  "exclude": ["src/js/lib/ace/**/*"]
 }
