@@ -1,6 +1,8 @@
+import { COLFILTER_CHANGE } from '../events.js';
 import Component from './component.js';
 
 export default class ColumnFilter extends Component {
+	inputs = [];
 	selectedColumns = [];
 
 	init() {
@@ -9,22 +11,22 @@ export default class ColumnFilter extends Component {
 
 	setupEvents() {
 		this.$('#filter-all').addEventListener('click', () => {
-			this.inputs.map((input) => (input.checked = true));
+			this.inputs?.map((input) => (input.checked = true));
 		});
 
 		this.$('#filter-none').addEventListener('click', () => {
-			this.inputs.map((input) => (input.checked = false));
+			this.inputs?.map((input) => (input.checked = false));
 		});
 
 		this.$('#filter-dialog').addEventListener('toggle', (e) => {
 			if (e.newState === 'closed') {
 				const selectedColumns = this.inputs
-					.map((input) => {
+					?.map((input) => {
 						return input.checked && input.value;
 					})
 					.filter(Boolean);
 
-				if (!selectedColumns.length) {
+				if (!selectedColumns?.length) {
 					this.$('#filter-open').click();
 					return;
 				}
@@ -33,7 +35,7 @@ export default class ColumnFilter extends Component {
 					selectedColumns.length !== this.selectedColumns.length ||
 					selectedColumns.some((c, i) => c !== this.selectedColumns[i])
 				) {
-					this.dispatchEvent('change', { selectedColumns });
+					this.dispatchCustomEvent(COLFILTER_CHANGE, { selectedColumns });
 					this.selectedColumns = selectedColumns;
 				}
 			}
@@ -56,7 +58,8 @@ export default class ColumnFilter extends Component {
 		});
 		this.$('#filter-list').innerHTML = raw.join('');
 
-		this.inputs = [...this.$$('#filter-list input[type="checkbox"]')];
+		const inputs = this.$$('#filter-list input[type="checkbox"]');
+		this.inputs = inputs ? [...inputs] : [];
 		this.selectedColumns = columns;
 	}
 }

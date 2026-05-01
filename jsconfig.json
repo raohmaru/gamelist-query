@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "es2022",
+    "target": "es2022",
+    "checkJs": true,
+    "noImplicitAny": false
+  },
+  "include": [
+    "src/**/*",
+    "globals.d.ts"
+  ],
+  "exclude": ["src/js/lib/ace"]
+}

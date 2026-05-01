@@ -1,4 +1,4 @@
-ace.define('ace/mode/glq_highlight_rules', (require, exports) => {
+window.ace.define('ace/mode/glq_highlight_rules', (require, exports) => {
 	const oop = require('../lib/oop');
 	const textHighlightRules =
 		require('./text_highlight_rules').TextHighlightRules;
@@ -47,7 +47,7 @@ ace.define('ace/mode/glq_highlight_rules', (require, exports) => {
 	exports.SqlHighlightRules = HighlightRules;
 });
 
-ace.define('ace/mode/glq', (require, exports) => {
+window.ace.define('ace/mode/glq', (require, exports) => {
 	const oop = require('../lib/oop');
 	const textMode = require('./text').Mode;
 	const HighlightRules = require('./glq_highlight_rules').SqlHighlightRules;
@@ -63,7 +63,7 @@ ace.define('ace/mode/glq', (require, exports) => {
 });
 
 (() => {
-	ace.require(['ace/mode/glq'], (mode) => {
+	window.ace.require(['ace/mode/glq'], (mode) => {
 		if (typeof module === 'object' && typeof exports === 'object' && module) {
 			module.exports = mode;
 		}

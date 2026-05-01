@@ -6,16 +6,23 @@ import dragScroll from '../utils/dragScroll.js';
 import { $ } from '../lib/rtkjs/dom.js';
 import { pluralize } from '../lib/rtkjs/string.js';
 import { COMPARISON_OP } from '../lib/glq/operators.js';
+import {
+	CODE_EXEC,
+	COLFILTER_CHANGE,
+	DROP_FILE_SELECTOR,
+	MODAL_TOGGLE
+} from '../events.js';
+/** @typedef {import("./modal.js").default} Modal */
 
 export default class GamelistQuery extends Component {
-	init() {
-		this.games = [];
-		this.gamesFiltered = [];
-		this.sortColumn = null;
-		this.sortDirection = 'asc';
-		this.properties = [];
-		this.propertiesFiltered = [];
+	gamesFiltered = [];
+	games = [];
+	sortColumn = null;
+	sortDirection = 'asc';
+	properties = [];
+	propertiesFiltered = [];
 
+	init() {
 		this.setupEvents();
 	}
 
@@ -28,7 +35,7 @@ export default class GamelistQuery extends Component {
 		});
 
 		this.$('#upload-btn').addEventListener('click', () => {
-			this.dispatchEvent('file-selector');
+			this.dispatchCustomEvent(DROP_FILE_SELECTOR);
 		});
 
 		this.$('#export-xml-btn').addEventListener('mousedown', () =>
@@ -39,19 +46,21 @@ export default class GamelistQuery extends Component {
 		);
 
 		this.$('#help-btn').addEventListener('click', () => {
-			$('modal-modal').open({
+			// Parenthesis for proper JSDoc type assertion
+			const modal = /** @type {Modal} */ ($('modal-modal'));
+			modal.open({
 				title: 'How to Search',
 				message: `
-The search query consists of the name of a property (${Object.values(
-					this.properties
-				)
+Write the name of a game property (${Object.values(this.properties)
 					.slice(0, 3)
 					.map((p) => `<code>${p}</code>`)
 					.join(', ')}, etc), an operator (${Object.values(COMPARISON_OP)
 					.map((p) => `<code>${p}</code>`)
-					.join(', ')}) and a value to compare with the game property.<br>
+					.join(
+						', '
+					)}) and a value with which to compare with the game property.<br>
 You can join queries with <code>AND</code> or <code>OR</code>, and create sub-queries by enclosing a query in parentheses <code>(...)</code>.<br><br>
-To search games missing a property, prefix the property with <code>!</code>.<br><br>
+To search for games that are missing a property, prefix the property with <code>!</code>.<br><br>
 <strong>Examples:</strong><br>
 Games with "Sonic" in the title and the rating is greater than 0.5 and the property "publisher" is missing.
 <pre>
@@ -65,11 +74,11 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 			});
 		});
 
-		this.$('code-editor').addEventListener('exec', (e) =>
-			this.executeQuery(e.detail.value)
+		this.$('code-editor').addEventListener(CODE_EXEC, () =>
+			this.executeQuery()
 		);
 
-		this.$('column-filter').addEventListener('change', (e) => {
+		this.$('column-filter').addEventListener(COLFILTER_CHANGE, (e) => {
 			this.propertiesFiltered = e.detail.selectedColumns;
 			this.renderTable(this.gamesFiltered);
 		});
@@ -88,9 +97,10 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 			}
 		});
 
-		document.addEventListener('modal', (e) => {
-			this.toggleAttribute('inert', e.detail.open);
-			if (!e.detail.open) {
+		document.addEventListener(MODAL_TOGGLE, (e) => {
+			const { open, type } = /** @type {CustomEvent} */ (e).detail;
+			this.toggleAttribute('inert', open);
+			if (!open && type === 'warning') {
 				this.$('code-editor').focus();
 			}
 		});
@@ -132,8 +142,10 @@ players > 2 AND (genre = Adventure OR releasedate <= 1990-02)
 		try {
 			this.gamesFiltered = gamelistQuery(this.games, query);
 		} catch (error) {
-			$('modal-modal').open({
-				message: error.message,
+			// Parenthesis for proper JSDoc type assertion
+			const modal = /** @type {Modal} */ ($('modal-modal'));
+			modal.open({
+				message: /** @type {Error} */ (error).message,
 				title: 'Query Error',
 				type: 'warning'
 			});

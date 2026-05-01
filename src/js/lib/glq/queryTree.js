@@ -9,7 +9,7 @@ import {
 
 /**
  * Validate a query tree.
- * @param {string[]} queryTree
+ * @param {Array} queryTree
  * @returns {Boolean}
  * @throws {Error}
  */
@@ -28,7 +28,9 @@ function validateTree(queryTree) {
 				!LOGICAL_OP_VALUES.includes(left) &&
 				!PREFIX_OP_VALUES.includes(left[0]))
 		) {
-			throw new Error(`Invalid query "${node.join(' ')}"`);
+			throw new Error(
+				`Invalid query "${typeof node === 'string' ? node : node.join(' ')}"`
+			);
 		}
 	}
 	return true;
@@ -37,7 +39,7 @@ function validateTree(queryTree) {
 /**
  * Generate a query tree from a query string.
  * @param {string} q
- * @returns {string[]}
+ * @returns {(string|string[])[]}
  */
 export function generateTree(q) {
 	const queryTree = [];

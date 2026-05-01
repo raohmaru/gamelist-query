@@ -1,6 +1,9 @@
+import { MODAL_TOGGLE } from '../events.js';
 import Component from './component.js';
 
 export default class Modal extends Component {
+	type = 'info';
+
 	init() {
 		this.setupEvents();
 	}
@@ -15,7 +18,8 @@ export default class Modal extends Component {
 		}
 	}
 
-	open({ message, title = 'Info', type }) {
+	open({ message, title = 'Info', type = 'info' }) {
+		this.type = type;
 		this.$('#title').textContent = title;
 		this.$('#message').innerHTML = message;
 		if (type) {
@@ -26,13 +30,13 @@ export default class Modal extends Component {
 		this.show();
 		this.$('#close-btn').focus();
 		document.addEventListener('keydown', (e) => this.onKeyUp(e));
-		this.dispatchEvent('modal', { open: true });
+		this.dispatchCustomEvent(MODAL_TOGGLE, { open: true, type });
 	}
 
 	close() {
 		this.hide();
 		document.removeEventListener('keydown', this.onKeyUp);
-		this.dispatchEvent('modal', { open: false });
+		this.dispatchCustomEvent(MODAL_TOGGLE, { open: false, type: this.type });
 	}
 }
 

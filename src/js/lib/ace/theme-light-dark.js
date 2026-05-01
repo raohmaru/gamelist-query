@@ -1,5 +1,5 @@
 // biome-ignore lint: lint/correctness/noUnusedFunctionParameters
-ace.define('ace/theme/light-dark-css', (require, exports, module) => {
+window.ace.define('ace/theme/light-dark-css', (require, exports, module) => {
 	module.exports = `
 .ace-light-dark {
     color: black;
@@ -260,7 +260,7 @@ ace.define('ace/theme/light-dark-css', (require, exports, module) => {
 `;
 });
 
-ace.define('ace/theme/light-dark', (require, exports) => {
+window.ace.define('ace/theme/light-dark', (require, exports) => {
 	exports.cssClass = 'ace-light-dark';
 	exports.cssText = require('./light-dark-css');
 	const dom = require('../lib/dom');
@@ -268,7 +268,7 @@ ace.define('ace/theme/light-dark', (require, exports) => {
 });
 
 (() => {
-	ace.require(['ace/theme/light-dark'], (theme) => {
+	window.ace.require(['ace/theme/light-dark'], (theme) => {
 		if (typeof module === 'object' && typeof exports === 'object' && module) {
 			module.exports = theme;
 		}

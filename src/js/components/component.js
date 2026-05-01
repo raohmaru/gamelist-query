@@ -12,24 +12,26 @@ export default class Component extends HTMLElement {
 	}
 
 	render() {
-		const template = $(`#${this.tagName.toLowerCase()}-tmpl`);
-		if (template) {
+		const template = /** @type {HTMLTemplateElement} */ (
+			$(`#${this.tagName.toLowerCase()}-tmpl`)
+		);
+		if (template instanceof HTMLTemplateElement) {
 			const templateContent = template.content;
-			this.shadowRoot.appendChild(document.importNode(templateContent, true));
+			this.shadowRoot?.appendChild(document.importNode(templateContent, true));
 		}
 	}
 
 	init() {}
 
 	$(selector) {
-		return this.shadowRoot.querySelector(selector);
+		return this.shadowRoot?.querySelector(selector);
 	}
 
 	$$(selector) {
-		return this.shadowRoot.querySelectorAll(selector);
+		return this.shadowRoot?.querySelectorAll(selector);
 	}
 
-	dispatchEvent(name, detail) {
+	dispatchCustomEvent(name, detail) {
 		super.dispatchEvent(
 			new CustomEvent(name, {
 				detail,

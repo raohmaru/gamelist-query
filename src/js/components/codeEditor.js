@@ -1,3 +1,4 @@
+import { CODE_EXEC } from '../events.js';
 import Component from './component.js';
 
 export default class CodeEditor extends Component {
@@ -9,24 +10,26 @@ export default class CodeEditor extends Component {
 	}
 
 	addStyles() {
-		// Append styles from document
-		const { firstChild } = this.shadowRoot;
-		[
-			'autocompletion',
-			'snippets',
-			'error_marker',
-			'ace_editor',
-			'ace_scrollbar'
-		].forEach((cssID) => {
-			this.shadowRoot.insertBefore(
-				document.querySelector(`style[id="${cssID}.css"]`),
-				firstChild
-			);
-		});
+		if (this.shadowRoot) {
+			// Append styles from document
+			const { firstChild } = this.shadowRoot;
+			[
+				'autocompletion',
+				'snippets',
+				'error_marker',
+				'ace_editor',
+				'ace_scrollbar'
+			].forEach((cssID) => {
+				const styleNode = document.querySelector(`style[id="${cssID}.css"]`);
+				if (styleNode) {
+					this.shadowRoot?.insertBefore(styleNode, firstChild);
+				}
+			});
+		}
 	}
 
 	initEditor(editorElement) {
-		this.editor = ace.edit(editorElement);
+		this.editor = window.ace.edit(editorElement);
 		const { editor } = this;
 		editor.session.setMode('ace/mode/glq');
 		editor.setTheme('ace/theme/light-dark');
@@ -52,7 +55,7 @@ export default class CodeEditor extends Component {
 			exec: (editor) => {
 				const value = editor.getValue();
 				if (value) {
-					this.dispatchEvent('exec', { value });
+					this.dispatchCustomEvent(CODE_EXEC, { value });
 				}
 			}
 		});
@@ -63,7 +66,7 @@ export default class CodeEditor extends Component {
 	 * @returns {Autocomplete}
 	 */
 	getCompleter() {
-		const { Autocomplete } = ace.require('ace/autocomplete');
+		const { Autocomplete } = window.ace.require('ace/autocomplete');
 		return Autocomplete.for(this.editor);
 	}
 
@@ -84,7 +87,7 @@ export default class CodeEditor extends Component {
 			},
 			id: 'keywordCompleter'
 		};
-		const langTools = ace.require('ace/ext/language_tools');
+		const langTools = window.ace.require('ace/ext/language_tools');
 		langTools.setCompleters([keyWordCompleter]);
 	}
 
@@ -108,7 +111,7 @@ export default class CodeEditor extends Component {
 		return this.editor.getValue();
 	}
 
-	set value(val = '') {
+	set value(val) {
 		this.editor.setValue(val);
 	}
 }

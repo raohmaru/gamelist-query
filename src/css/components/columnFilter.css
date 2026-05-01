@@ -43,11 +43,12 @@ dialog {
 .filter-buttons {
 	display: flex;
 	gap: 5px;
+	margin-bottom: var(--m-sm);
 }
 
 .filter-list {
 	list-style: none;
-	margin: 5px 0 var(--m-sm);
+	margin: 5px 0 0;
 	padding: 0;
 	color: var(--text-primary);
 

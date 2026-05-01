@@ -10,7 +10,7 @@ import { COMPARISON_OP } from './operators.js';
  * @returns {boolean}
  */
 function compareDates(operator, leftValue, rightValue) {
-	let result;
+	let result = false;
 	const dateParts = rightValue.split('-').map(Number);
 	// Adjust month
 	dateParts[1] -= 1;
@@ -52,7 +52,7 @@ function compareDates(operator, leftValue, rightValue) {
  */
 export function compareValues(prop, value1, value2, operator) {
 	const [leftValue, rightValue] = parseValues(prop, value1, value2);
-	let result;
+	let result = false;
 	switch (operator) {
 		case COMPARISON_OP.greater:
 			if (leftValue instanceof Date && rightValue instanceof Date) {

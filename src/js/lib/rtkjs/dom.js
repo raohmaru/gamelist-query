@@ -2,7 +2,7 @@
  * Fast query selector.
  * @param {string} selector - Valid CSS selector
  * @param {Element} [root=document] - Element on which run the query
- * @returns {Element}
+ * @returns {Element|null}
  */
 export function $(selector, root) {
 	const element = root || document;
@@ -26,7 +26,7 @@ export function $$(selector, root) {
 /**
  *  Parses a string of HTML into a DocumentFragment or Element.
  * @param {*} htmlString - String containing HTML to parse
- * @returns {HTMLCollection|Element} - Parsed HTML as a NodeList or Element
+ * @returns {HTMLCollection|Element|null} - Parsed HTML as a NodeList or Element
  */
 export function parseDOMString(htmlString) {
 	const docFrag = document.createRange().createContextualFragment(htmlString);

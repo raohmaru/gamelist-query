@@ -1,5 +1,11 @@
 import Component from './component.js';
 import { $ } from '../lib/rtkjs/dom.js';
+import {
+	DROP_DRAG_LEAVE,
+	DROP_FILE_INVALID,
+	DROP_FILE_LOADED,
+	DROP_FILE_SELECTOR
+} from '../events.js';
 
 const FILE_TYPES = ['text/xml', 'text/plain'];
 
@@ -23,7 +29,7 @@ export default class DropZone extends Component {
 			e.preventDefault();
 		});
 
-		this.addEventListener('dragleave', (e) => {
+		this.addEventListener(DROP_DRAG_LEAVE, (e) => {
 			e.preventDefault();
 			dropArea.classList.remove('dragover');
 		});
@@ -31,12 +37,15 @@ export default class DropZone extends Component {
 		this.addEventListener('drop', (e) => {
 			e.preventDefault();
 			dropArea.classList.remove('dragover');
-			const file = e.dataTransfer.files[0];
-			if (FILE_TYPES.includes(file?.type)) {
+			const file = e.dataTransfer?.files[0];
+			if (!file) {
+				return;
+			}
+			if (FILE_TYPES.includes(file.type)) {
 				this.handleFile(file);
 			} else {
 				this.showWarning();
-				this.dispatchEvent('file-invalid');
+				this.dispatchCustomEvent(DROP_FILE_INVALID);
 			}
 		});
 
@@ -45,14 +54,15 @@ export default class DropZone extends Component {
 			input.type = 'file';
 			input.accept = '.xml';
 			input.onchange = (e) => {
-				if (e.target.files[0]) {
-					this.handleFile(e.target.files[0]);
+				const target = /** @type {HTMLInputElement} */ (e.target);
+				if (target.files?.[0]) {
+					this.handleFile(target.files[0]);
 				}
 			};
 			input.click();
 		});
 
-		document.addEventListener('file-selector', () => {
+		document.addEventListener(DROP_FILE_SELECTOR, () => {
 			dropArea.click();
 		});
 	}
@@ -61,22 +71,26 @@ export default class DropZone extends Component {
 		const reader = new FileReader();
 		reader.onload = (e) => {
 			const parser = new DOMParser();
-			const doc = parser.parseFromString(e.target.result, 'text/xml');
+			const doc = parser.parseFromString(
+				e.target?.result?.toString() || '',
+				'text/xml'
+			);
 			const games = Array.from(doc.getElementsByTagName('game'));
 
 			if (games.length === 0) {
 				this.showWarning();
-				this.dispatchEvent('dragleave');
+				this.dispatchCustomEvent(DROP_DRAG_LEAVE);
 				return;
 			}
 
-			this.dispatchEvent('file-loaded', { games });
+			this.dispatchCustomEvent(DROP_FILE_LOADED, { games });
 		};
 		reader.readAsText(file);
 	}
 
 	showWarning() {
-		const modal = $('modal-modal');
+		/** @typedef {import('./modal.js').default} Modal */
+		const modal = /** @type {Modal} */ ($('modal-modal'));
 		modal.open({
 			message: 'Invalid file. No games found in the file loaded.',
 			title: 'Warning',

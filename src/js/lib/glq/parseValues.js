@@ -6,31 +6,36 @@
  * @returns {*[]}
  */
 export function parseValues(prop, value1, value2) {
+	/** @type {string|string[]|number|Date} parsedValue1 */
+	let parsedValue1 = value1;
+	/** @type {string|number|Date} parsedValue2 */
+	let parsedValue2 = value2;
+
 	switch (prop) {
 		case 'rating':
 		case 'gametime':
 		case 'playcount':
-			value1 = Number(value1);
-			value2 = Number(value2);
+			parsedValue1 = Number(value1);
+			parsedValue2 = Number(value2);
 			break;
 
 		case 'genre':
 		case 'lang':
-			value1 = value1.split(/[ ]*[/,][ ]*/g);
+			parsedValue1 = value1.split(/[ ]*[/,][ ]*/g);
 			break;
 
 		case 'players':
-			value1 = parsePlayers(value1);
-			value2 = Number(value2);
+			parsedValue1 = parsePlayers(value1);
+			parsedValue2 = Number(value2);
 			break;
 
 		case 'releasedate':
 		case 'lastplayed':
-			value1 = new Date(parseDate(value1));
-			value2 = new Date(value2);
+			parsedValue1 = new Date(parseDate(value1));
+			parsedValue2 = new Date(value2);
 			break;
 	}
-	return [value1, value2];
+	return [parsedValue1, parsedValue2];
 }
 
 export function parseDate(value) {
