@@ -3,7 +3,7 @@
 Search and filter your game collection from gamelist.xml files (used by [Batocera](https://batocera.org/), [ES-DE](https://es-de.org/), [Rocknix](https://rocknix.org/), and similar frontends based on [EmulationStation](https://github.com/Aloshi/EmulationStation)).  
 Gamelist Query helps you find games by name, genre, developer, and any other property found in the gamelist.xml.
 
-https://raohmaru.github.io/gamelist-query/
+https://raohmaru.github.io/gamelist-query
 
 ## Getting Started
 
@@ -49,7 +49,7 @@ The command outputs the paths of matching games and a summary count.
 
 ### Query Syntax
 
-Queries use a simple format similar to SQL. It defines on or several **conditions** that match game properties with values:
+Queries use a simple format similar to SQL. It defines one or several **conditions** that match game properties with values:
 
 ```
 <property operator value> [logical_operator <condition2>...]
